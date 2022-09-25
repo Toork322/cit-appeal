@@ -1,0 +1,87 @@
+{% extends 'base_system.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Карточка обращения{% endblock %}
+{% load static %}
+{% block statics %}
+<link rel="stylesheet" href="{% static 'appeal/css/appeal_card.css' %}" type="text/css" />
+{% endblock %}
+{% block content %}
+    <h3 class="text-center">Обращение гражданина №{{ appeal.pk }}</h3>
+    <div class="row">
+        <div class="col">
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-success" type="submit">Сохранить изменения</button>
+                        <a href="{% url 'appeal:appeal_delete' appeal.pk %}" class="btn btn-danger" role="button">Удалить обращение</a>
+                        <a href="{% url 'workspace' %}" class="btn btn-secondary" role="button">Назад</a>
+                    </div>
+                </div>
+                {% for field in form %}
+                <div class="row">
+                    <div class="col">
+                        {{ field|as_crispy_field }}
+                    </div>
+                </div>
+                {% endfor %}
+            </form>
+        </div>
+
+        <div class="col">
+            <h5>Задачи</h5>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID задачи</th>
+                            <th>Исполнитель</th>
+                            <th>Дата постановки</th>
+                            <th>
+                                <a href="{% url 'appeal:create_task' appeal.pk %}" class="btn btn-info" role="button">Создать задачу</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for task in tasks %}
+                        <tr>
+                            <td>{{ task.id }}</td>
+                            <td>{{ task.UserExecutor }}</td>
+                            <td>{{ task.DateTasking }}</td>
+                            <td>
+                                <a href="{{ task.get_absolute_url }}" class="btn btn-primary" role="button">Просмотреть</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <h5>Ответы</h5>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID ответа</th>
+                            <th>Дата отправки</th>
+                            <th>
+                                <a href="{% url 'appeal:create_answer' appeal.pk %}" class="btn btn-info" role="button">Создать ответ</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for answer in answers %}
+                        <tr>
+                            <td>{{ answer.id }}</td>
+                            <td>{{ answer.DateCreation }}</td>
+                            <td>
+                                <a href="{{ answer.get_absolute_url }}" class="btn btn-primary" role="button">Просмотреть</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

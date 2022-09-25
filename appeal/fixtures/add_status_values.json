@@ -1,0 +1,20 @@
+[
+  {
+    "model": "appeal.Status",
+    "fields": {
+      "StatusValue": "Ожидание"
+    }
+  },
+  {
+    "model": "appeal.Status",
+    "fields": {
+      "StatusValue": "В процессе"
+    }
+  },
+  {
+    "model": "appeal.Status",
+    "fields": {
+      "StatusValue": "Выполнено"
+    }
+  }
+]

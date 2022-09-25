@@ -1,0 +1,20 @@
+body {
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-top: 2%;
+}
+
+.col-base {
+	float: left;
+	width: 72%;
+}
+
+.col-base2 {
+	float: right;
+	width: 28%;
+}
+
+.base-form-label {
+    font-size: 20px;
+}
+

@@ -1,0 +1,40 @@
+{% extends 'base_system.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Сотрудники{% endblock %}
+{% load static %}
+{% block statics %}
+<link rel="stylesheet" href="{% static 'staff/css/workers.css' %}" type="text/css" />
+{% endblock %}
+{% block content %}
+    <div class="col-workers">
+        <h2 class="text-center">Сотрудники</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    {% for label in table_head %}
+                    <th>{{ label }}</th>
+                    {% endfor %}
+                    <th>
+                        <a href="{% url 'staff:register_worker' %}" class="btn btn-info" role="button">Добавить сотрудника</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for worker in data %}
+                <tr>
+                    <td>{{ worker.pk }}</td>
+                    <td>{{ worker.username }}</td>
+                    <td>
+                        {% for group in worker.groups.all %}
+                        {{ group }}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a href="{{ worker.get_absolute_url }}" class="btn btn-info" role="button">Просмотреть</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

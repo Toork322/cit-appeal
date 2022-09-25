@@ -1,0 +1,95 @@
+{% extends 'base_system.html' %}
+{% load static %}
+{% block title %}Рабочий стол{% endblock %}
+{% block statics %}
+<link rel="stylesheet" href="{% static 'workspace/css/workspace.css' %}" type="text/css" />
+{% endblock %}
+{% block content %}
+    <div class="col-workspace">
+        <h3 class="h3">{{ header }}</h3>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        {% for label in table_head %}
+                        <th>{{ label }}</th>
+                        {% endfor %}
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if 'Категория' in table_head %}
+                {% for appeal in data %}
+                    <tr>
+                        <td>{{ appeal.pk }}</td>
+                        <td>{{ appeal.AppealContent|truncatechars:50 }}</td>
+                        <td>{{ appeal.DateApplication }}</td>
+                        <td>{{ appeal.AppealStatus }}</td>
+                        <td>{{ appeal.CategoryValue }}</td>
+                        <td>
+                            <a href="{{ appeal.get_absolute_url }}" class="btn btn-info" role="button">Просмотреть</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% else %}
+                {% for task in data %}
+                    <tr>
+                        <td>{{ task.pk }}</td>
+                        <td>{{ task.TaskContent|truncatechars:50 }}</td>
+                        <td>{{ task.DateTasking }}</td>
+                        <td>{{ task.TaskStatus }}</td>
+                        <td>
+                            <a href="{{ task.get_absolute_url }}" class="btn btn-info" role="button">Просмотреть</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    {% if data.has_other_pages %}
+    <nav>
+        <ul class="pagination justify-content-center">
+            {% if data.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ data.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link" aria-hidden="true">&laquo;</span>
+            </li>
+            {% endif %}
+
+            {% for p in data.paginator.page_range %}
+            {% if data.number == p %}
+            <li class="page-item">
+                <a class="page-link" style="color: red;" href="#">{{ p }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ p }}">{{ p }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            {% if data.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ data.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link" aria-hidden="true">&raquo;</span>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+{% endblock %}
+

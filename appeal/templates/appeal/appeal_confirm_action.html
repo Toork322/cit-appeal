@@ -1,0 +1,17 @@
+{% extends 'base_system.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Создание отчёта{% endblock %}
+{% load static %}
+{% block statics %}
+<link rel="stylesheet" href="{% static 'appeal/css/appeal_delete.css' %}" type="text/css" />
+{% endblock %}
+{% block content %}
+    <div class="col-delete-appeal text-center">
+        <form method="post">
+            {% csrf_token %}
+            <p>Вы уверены, что хотите удалить "{{ object }}"?</p>
+            <button class="btn btn-warning" type="submit" value="Confirm">Подтвердить</button>
+            <a href="{{ object.get_absolute_url }}" class="btn btn-info" role="button">Назад</a>
+        </form>
+    </div>
+{% endblock %}

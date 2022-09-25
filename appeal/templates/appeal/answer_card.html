@@ -1,0 +1,21 @@
+{% extends 'base_system.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Ответ{% endblock %}
+{% load static %}
+{% block statics %}
+<link rel="stylesheet" href="{% static 'appeal/css/answer_card.css' %}" type="text/css" />
+{% endblock %}
+{% block content %}
+    <h3 class="text-center">Ответ №{{ answer_id }}</h3>
+    <div class="col-answer-card">
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field|as_crispy_field }}
+            {% endfor %}
+            <br>
+            <button class="btn btn-success" type="submit">Сохранить изменения</button>
+            <a href="{% url 'appeal:answer_delete' appeal_id answer_id %}" class="btn btn-danger" role="button">Удалить ответ</a>
+        </form>
+    </div>
+{% endblock %}

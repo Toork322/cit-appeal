@@ -1,0 +1,92 @@
+[
+  {
+    "model": "appeal.Category",
+    "fields": {
+      "CategoryValue": "Благоустройство"
+    }
+  },
+  {
+    "model": "appeal.Category",
+    "fields": {
+      "CategoryValue": "Водоотведение"
+    }
+  },
+  {
+    "model": "appeal.Category",
+    "fields": {
+      "CategoryValue": "Водоснабжение"
+    }
+  },
+  {
+    "model": "appeal.Category",
+    "fields": {
+      "CategoryValue": "Кровля"
+    }
+  },
+  {
+    "model": "appeal.Category",
+    "fields": {
+      "CategoryValue": "Нарушение порядка пользования общим имуществом"
+    }
+  },
+  {
+    "model": "appeal.Category",
+    "fields": {
+      "CategoryValue": "Нарушение правил пользования общим имуществом"
+    }
+  },
+  {
+    "model": "appeal.Category",
+    "fields": {
+      "CategoryValue": "Незаконная информационная и (или) рекламная конструкция"
+    }
+  },
+  {
+    "model": "appeal.Category",
+    "fields": {
+      "CategoryValue": "Незаконная реализация товаров с торгового оборудования (прилавок, ящик, с земли)"
+    }
+  },
+  {
+    "model": "appeal.Category",
+    "fields": {
+      "CategoryValue": "Повреждения или неисправность элементов уличной инфраструктуры"
+    }
+  },
+  {
+    "model": "appeal.Category",
+    "fields": {
+      "CategoryValue": "Подвалы"
+    }
+  },
+  {
+    "model": "appeal.Category",
+    "fields": {
+      "CategoryValue": "Санитарное состояние"
+    }
+  },
+  {
+    "model": "appeal.Category",
+    "fields": {
+      "CategoryValue": "Содержание МКД"
+    }
+  },
+  {
+    "model": "appeal.Category",
+    "fields": {
+      "CategoryValue": "Состояние рекламных или информационных конструкций"
+    }
+  },
+  {
+    "model": "appeal.Category",
+    "fields": {
+      "CategoryValue": "Фасад"
+    }
+  },
+  {
+    "model": "appeal.Category",
+    "fields": {
+      "CategoryValue": "Центральное отопление"
+    }
+  }
+]

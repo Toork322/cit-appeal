@@ -1,0 +1,24 @@
+{% extends 'base_system.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Создание отчёта{% endblock %}
+{% load static %}
+{% block statics %}
+<link rel="stylesheet" href="{% static 'staff/css/worker_page.css' %}" type="text/css" />
+{% endblock %}
+{% block content %}
+    <div class="col-worker-page text-center">
+        <h2>Сотрудник {{ worker_id }}</h2>
+        <form class="form-worker-page" method="post">
+            <p></p>
+            <button class="btn btn-success" type="submit">Сохранить изменения</button>
+            <a href="{% url 'staff:worker_page_delete' worker.pk %}" class="btn btn-danger" role="button">Удалить сотрудника</a>
+            <a href="{% url 'staff:workers' %}" class="btn btn-secondary" role="button">Назад</a>
+            <p></p>
+            {% csrf_token %}
+            {% for field in form %}
+                <p>{{ field|as_crispy_field }}</p>
+            {% endfor %}
+        </form>
+    </div>
+
+{% endblock %}

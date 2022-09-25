@@ -1,0 +1,22 @@
+{% extends 'base_system.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Отчёт{% endblock %}
+{% load static %}
+{% block statics %}
+<link rel="stylesheet" href="{% static 'appeal/css/report_card.css' %}" type="text/css" />
+{% endblock %}
+{% block content %}
+    <div class="col-report-card text-center">
+        <h3 class="text-center">Отчёт №{{ report_id }}</h3>
+        <form class="form-report-card" method="post">
+            <button class="btn btn-success" type="submit">Сохранить изменения</button>
+            <a href="{% url 'appeal:report_delete' appeal_id task_id report_id %}" class="btn btn-danger" role="button">Удалить отчет</a>
+            <a href="{% url 'appeal:task_card' appeal_id task_id %}" class="btn btn-secondary" role="button">Назад</a>
+            <br>
+            {% csrf_token %}
+            {% for field in form %}
+            {{ field|as_crispy_field }}
+            {% endfor %}
+        </form>
+    </div>
+{% endblock %}

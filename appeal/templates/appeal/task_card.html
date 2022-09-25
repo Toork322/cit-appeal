@@ -1,0 +1,53 @@
+{% extends 'base_system.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Задача{% endblock %}
+{% load static %}
+{% block statics %}
+<link rel="stylesheet" href="{% static 'appeal/css/task_card.css' %}" type="text/css" />
+{% endblock %}
+{% block content %}
+    <h3 class="text-center">Задача №{{ task_id }}</h3>
+    <div class="col-info">
+        <form method="post">
+            {% csrf_token %}
+            <button class="btn btn-success" type="submit">Сохранить изменения</button>
+            <a href="{% url 'appeal:task_delete' appeal_id task_id %}" class="btn btn-danger" role="button">Удалить задачу</a>
+            {% if perms.appeal.view_appeal %}
+            <a href="{% url 'appeal:appeal_card' appeal_id %}" class="btn btn-secondary" role="button">Назад</a>
+            {% else %}
+            <a href="{% url 'workspace' %}" class="btn btn-secondary" role="button">Назад</a>
+            {% endif %}
+            <br>
+            {% for field in form %}
+                {{ field|as_crispy_field }}
+            {% endfor %}
+        </form>
+    </div>
+
+    <div class="col-reports">
+        <h5 class="text-center">Текущие отчёты по задаче:</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id отчёта</th>
+                    <th>Дата формирования</th>
+                    <th>
+                        <a href="{% url 'appeal:create_report' appeal_id task_id  %}" class="btn btn-primary" role="button">Создать отчёт</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for report in reports %}
+                <tr>
+                    <td>{{ report.pk }}</td>
+                    <td>{{ report.DateCreation }}</td>
+                    <td>
+                        <a href="{{ report.get_absolute_url }}" class="btn btn-info" role="button">Просмотреть</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

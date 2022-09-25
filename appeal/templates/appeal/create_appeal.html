@@ -1,0 +1,33 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+        <title>форма обращения</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% static 'appeal/css/create_appeal.css' %}" type="text/css" />
+    </head>
+
+    <body>
+        <h2 class="text-center">Форма обращения</h2>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <form action="{% url 'appeal:create_appeal' %}" method="post">
+                    {% csrf_token %}
+                    <div class="col text-center">
+                        {% for field in form %}
+                            <label class="form-label">{{ field.label }}:</label>
+                            {{ field|as_crispy_field }}
+                        {% endfor %}
+                        <button class="btn btn-primary" type="submit">Подтвердить</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <label class="col-form-label">В соответствующие поля введите ваши личные данные.</label>
+            </div>
+        </div>
+    </body>
+</html>

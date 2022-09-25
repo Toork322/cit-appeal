@@ -1,0 +1,22 @@
+{% extends 'base_system.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Регистрация сотрудника{% endblock %}
+{% load static %}
+{% block statics %}
+<link rel="stylesheet" href="{% static 'staff/css/register.css' %}" type="text/css" />
+{% endblock %}
+{% block content %}
+    <div class="col-register-worker text-center">
+        <h1>Регистрация сотрудника</h1>
+        <form class="form-register-worker" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <label class="form-label">{{ field.label }}:</label>
+                {{ field|as_crispy_field }}
+            {% endfor %}
+            <p></p>
+            <button class="btn btn-primary" type="submit">Зарегистрировать</button>
+            <a href="{% url 'staff:workers' %}" class="btn btn-secondary" role="button">Назад</a>
+        </form>
+    </div>
+{% endblock %}
