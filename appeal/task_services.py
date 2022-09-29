@@ -5,7 +5,8 @@ from .appeal_services import get_appeal_from_id
 
 
 def get_tasks_for_appeal(appeal_id):
-    return Task.objects.filter(CurrentAppeal__pk=appeal_id).select_related('UserExecutor', 'CurrentAppeal')
+    return Task.objects.filter(CurrentAppeal__pk=appeal_id).\
+        select_related('UserExecutor', 'CurrentAppeal')
 
 
 def get_task_from_id(task_id):
@@ -13,7 +14,8 @@ def get_task_from_id(task_id):
 
 
 def get_reports_for_task(task_id):
-    return Report.objects.filter(CurrentTask__pk=task_id).select_related('CurrentTask', 'CurrentTask__CurrentAppeal')
+    return Report.objects.filter(CurrentTask__pk=task_id).\
+        select_related('CurrentTask', 'CurrentTask__CurrentAppeal')
 
 
 def save_task(self, form):

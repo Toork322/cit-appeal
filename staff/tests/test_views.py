@@ -25,13 +25,17 @@ class WorkersViewTestCase(GeneralWorkerTestCase):
         super(WorkersViewTestCase, self).setUp()
         self.can_view_worker = Permission.objects.get(codename='view_worker')
         self.group1.permissions.add(self.can_view_worker)
+        self.response = self.client.get(reverse("staff:workers"), follow=True)
 
-    def test_view(self):
-        response = self.client.get(reverse("staff:workers"), follow=True)
-        self.assertEqual(200, response.status_code)
-        self.assertTemplateUsed(response, template_name='staff/workers.html')
+    def test_status_code(self):
+        self.assertEqual(200, self.response.status_code)
+
+    def test_template(self):
+        self.assertTemplateUsed(self.response, template_name='staff/workers.html')
+
+    def test_list_values(self):
         self.assertListEqual(
-            response.context_data.get('table_head'),
+            self.response.context_data.get('table_head'),
             ['ID пользователя', 'Имя пользователя', 'Группа']
             )
 
@@ -41,11 +45,13 @@ class WorkerPageUpdateTestCase(GeneralWorkerTestCase):
         super(WorkerPageUpdateTestCase, self).setUp()
         self.can_change_worker = Permission.objects.get(codename='change_worker')
         self.group1.permissions.add(self.can_change_worker)
+        self.response = self.client.get(f"/staff/{self.admin1.pk}", follow=True)
 
-    def test_view(self):
-        response = self.client.get(f"/staff/{self.admin1.pk}", follow=True)
-        self.assertEqual(200, response.status_code)
-        self.assertTemplateUsed(response, template_name='staff/worker_page.html')
+    def test_status_code(self):
+        self.assertEqual(200, self.response.status_code)
+
+    def test_template(self):
+        self.assertTemplateUsed(self.response, template_name='staff/worker_page.html')
 
 
 class WorkerPageDeleteTestCase(GeneralWorkerTestCase):
@@ -53,11 +59,13 @@ class WorkerPageDeleteTestCase(GeneralWorkerTestCase):
         super(WorkerPageDeleteTestCase, self).setUp()
         self.can_delete_worker = Permission.objects.get(codename='delete_worker')
         self.group1.permissions.add(self.can_delete_worker)
+        self.response = self.client.get(f"/staff/{self.admin1.pk}/delete", follow=True)
 
-    def test_view(self):
-        response = self.client.get(f"/staff/{self.admin1.pk}/delete", follow=True)
-        self.assertEqual(200, response.status_code)
-        self.assertTemplateUsed(response, template_name='staff/worker_page_delete.html')
+    def test_status_code(self):
+        self.assertEqual(200, self.response.status_code)
+
+    def test_template(self):
+        self.assertTemplateUsed(self.response, template_name='staff/worker_page_delete.html')
 
 
 class RegisterWorkerTestCase(GeneralWorkerTestCase):
@@ -65,22 +73,29 @@ class RegisterWorkerTestCase(GeneralWorkerTestCase):
         super(RegisterWorkerTestCase, self).setUp()
         self.can_register_worker = Permission.objects.get(codename='add_worker')
         self.group1.permissions.add(self.can_register_worker)
+        self.response = self.client.get(f"/staff/register/", follow=True)
 
-    def test_view(self):
-        response = self.client.get(f"/staff/register/", follow=True)
-        self.assertEqual(200, response.status_code)
-        self.assertTemplateUsed(response, template_name='staff/register_worker.html')
+    def test_status_code(self):
+        self.assertEqual(200, self.response.status_code)
+
+    def test_template(self):
+        self.assertTemplateUsed(self.response, template_name='staff/register_worker.html')
 
 
 class LoginWorkerTestCase(GeneralWorkerTestCase):
     def setUp(self):
         super(LoginWorkerTestCase, self).setUp()
+        self.response = self.client.get(f"/staff/login/", follow=True)
+
         self.client2 = Client()
+        self.response2 = self.client2.get(f"/staff/login/", follow=True)
 
-    def test_view(self):
-        response2 = self.client.get(f"/staff/login/", follow=True)
-        self.assertRedirects(response2, '/')
+    def test_redirect(self):
+        self.assertRedirects(self.response, '/')
 
-        response = self.client2.get(f"/staff/login/", follow=True)
-        self.assertEqual(200, response.status_code)
-        self.assertTemplateUsed(response, template_name='staff/login_worker.html')
+    def test_status_code(self):
+        self.assertEqual(200, self.response2.status_code)
+
+    def test_template(self):
+        self.assertTemplateUsed(self.response2, template_name='staff/login_worker.html')
+
