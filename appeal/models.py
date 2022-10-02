@@ -1,10 +1,12 @@
 from django.db import models
 from django.urls import reverse, reverse_lazy
+from phonenumber_field.modelfields import PhoneNumberField
 
 from citappeal import settings
 
 
 class Status(models.Model):
+    """Общий статус."""
     StatusValue = models.CharField(
         verbose_name='Статус',
         max_length=20
@@ -15,6 +17,7 @@ class Status(models.Model):
 
 
 class Category(models.Model):
+    """Категория обращения."""
     CategoryValue = models.CharField(
         verbose_name='Категория',
         max_length=255
@@ -25,7 +28,7 @@ class Category(models.Model):
 
 
 class Appeal(models.Model):
-    """Обращение гражданина"""
+    """Обращение гражданина."""
     FirstName = models.CharField(
         verbose_name='Имя',
         max_length=255
@@ -42,9 +45,10 @@ class Appeal(models.Model):
         verbose_name='Социальный статус',
         max_length=255
     )
-    PhoneNumber = models.CharField(
-        verbose_name='Номер телефона',
-        max_length=255
+    PhoneNumber = PhoneNumberField(
+        region='RU',
+        blank=True,
+        verbose_name='Номер телефона'
     )
     EmailAddress = models.EmailField(
         verbose_name='Email',
@@ -90,6 +94,7 @@ class Appeal(models.Model):
 
 
 class Task(models.Model):
+    """Задача по обращению для исполнителя."""
     UserExecutor = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name='Исполнитель',
@@ -132,6 +137,7 @@ class Task(models.Model):
 
 
 class Answer(models.Model):
+    """Ответ гражданину."""
     CurrentAppeal = models.ForeignKey(
         Appeal,
         verbose_name='Обращение',
@@ -159,6 +165,7 @@ class Answer(models.Model):
 
 
 class Report(models.Model):
+    """Отчёт исполнителя по задаче."""
     CurrentTask = models.ForeignKey(
         Task,
         verbose_name='Текущая задача',

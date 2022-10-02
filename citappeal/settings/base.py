@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     "debug_toolbar",
     'crispy_forms',
+    "phonenumber_field",
 
     'workspace',
     'appeal',

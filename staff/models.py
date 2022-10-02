@@ -3,6 +3,6 @@ from django.urls import reverse
 
 
 class Worker(AbstractUser):
-
+    """Модель пользователя системы."""
     def get_absolute_url(self):
         return reverse('staff:worker_page', kwargs={'worker_id': self.pk})

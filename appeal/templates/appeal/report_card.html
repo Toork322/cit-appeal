@@ -15,7 +15,7 @@
             <br>
             {% csrf_token %}
             {% for field in form %}
-            {{ field|as_crispy_field }}
+                {{ field|as_crispy_field }}
             {% endfor %}
         </form>
     </div>
